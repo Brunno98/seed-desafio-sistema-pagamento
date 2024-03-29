@@ -1,5 +1,6 @@
 package br.com.brunno.yfood.domain.entity;
 
+import br.com.brunno.yfood.infrastructure.validators.ExcludeFromJacocoGeneratedReport;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -8,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import org.springframework.util.Assert;
 
+import javax.annotation.processing.Generated;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -37,6 +39,7 @@ public class Usuario {
         this.formasDePagametoPossiveis.addAll(formasDePagametoPossiveis);
     }
 
+    @ExcludeFromJacocoGeneratedReport
     @Override
     public String toString() {
         return "Usuario{" +
@@ -50,6 +53,7 @@ public class Usuario {
         return this.formasDePagametoPossiveis.stream().anyMatch(formaDePagamento::equals);
     }
 
+    @ExcludeFromJacocoGeneratedReport
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -58,6 +62,7 @@ public class Usuario {
         return Objects.equals(email, usuario.email);
     }
 
+    @ExcludeFromJacocoGeneratedReport
     @Override
     public int hashCode() {
         return Objects.hash(email);
