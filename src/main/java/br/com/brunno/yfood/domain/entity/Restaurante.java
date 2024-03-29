@@ -1,6 +1,7 @@
 package br.com.brunno.yfood.domain.entity;
 
 import br.com.brunno.yfood.domain.service.RegraFraude;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,7 +19,10 @@ public class Restaurante {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String nome;
+
     private Set<FormaPagamento> formasDePagamentoAceitas = new HashSet<>();
 
     @Deprecated

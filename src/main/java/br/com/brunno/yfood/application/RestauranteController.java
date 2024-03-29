@@ -5,6 +5,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,5 +30,11 @@ public class RestauranteController {
         entityManager.persist(novoRestaurante);
 
         return novoRestaurante.toString();
+    }
+
+    @GetMapping("/restaurante/{id}")
+    public String buscaRestaurantePorId(@PathVariable Long id) {
+        Restaurante restaurante = entityManager.find(Restaurante.class, id);
+        return restaurante.toString();
     }
 }
