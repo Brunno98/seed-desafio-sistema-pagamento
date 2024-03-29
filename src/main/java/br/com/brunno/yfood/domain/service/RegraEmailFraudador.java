@@ -1,8 +1,7 @@
-package br.com.brunno.yfood.infrastructure;
+package br.com.brunno.yfood.domain.service;
 
-import br.com.brunno.yfood.domain.FormaPagamento;
-import br.com.brunno.yfood.domain.RegraFraude;
-import br.com.brunno.yfood.domain.Usuario;
+import br.com.brunno.yfood.domain.entity.FormaPagamento;
+import br.com.brunno.yfood.domain.entity.Usuario;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

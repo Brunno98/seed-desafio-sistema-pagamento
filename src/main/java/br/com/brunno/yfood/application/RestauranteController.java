@@ -1,6 +1,6 @@
 package br.com.brunno.yfood.application;
 
-import br.com.brunno.yfood.domain.Restaurante;
+import br.com.brunno.yfood.domain.entity.Restaurante;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;

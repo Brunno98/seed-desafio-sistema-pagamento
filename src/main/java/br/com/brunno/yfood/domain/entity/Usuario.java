@@ -1,4 +1,4 @@
-package br.com.brunno.yfood.domain;
+package br.com.brunno.yfood.domain.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;

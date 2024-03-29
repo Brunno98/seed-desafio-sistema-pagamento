@@ -1,4 +1,4 @@
-package br.com.brunno.yfood.domain;
+package br.com.brunno.yfood.domain.entity;
 
 public enum FormaPagamento {
     dinheiro(false, "Pagamento em dinheiro na entrega do pedido"),

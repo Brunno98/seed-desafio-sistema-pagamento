@@ -1,7 +1,7 @@
 package br.com.brunno.yfood.application;
 
-import br.com.brunno.yfood.domain.Restaurante;
-import br.com.brunno.yfood.domain.Usuario;
+import br.com.brunno.yfood.domain.entity.Restaurante;
+import br.com.brunno.yfood.domain.entity.Usuario;
 import br.com.brunno.yfood.infrastructure.validators.Exists;
 import jakarta.validation.constraints.NotNull;
 

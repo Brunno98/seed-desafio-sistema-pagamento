@@ -1,11 +1,10 @@
 package br.com.brunno.yfood.application;
 
-import br.com.brunno.yfood.domain.Usuario;
+import br.com.brunno.yfood.domain.entity.Usuario;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;

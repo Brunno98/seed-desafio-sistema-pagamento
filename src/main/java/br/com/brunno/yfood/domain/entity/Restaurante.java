@@ -1,5 +1,6 @@
-package br.com.brunno.yfood.domain;
+package br.com.brunno.yfood.domain.entity;
 
+import br.com.brunno.yfood.domain.service.RegraFraude;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

@@ -1,4 +1,4 @@
-package br.com.brunno.yfood.domain;
+package br.com.brunno.yfood.domain.entity;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

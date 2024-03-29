@@ -1,9 +1,9 @@
 package br.com.brunno.yfood.application;
 
-import br.com.brunno.yfood.domain.FormaPagamento;
-import br.com.brunno.yfood.domain.Restaurante;
-import br.com.brunno.yfood.domain.Usuario;
-import br.com.brunno.yfood.domain.RegraFraude;
+import br.com.brunno.yfood.domain.entity.FormaPagamento;
+import br.com.brunno.yfood.domain.entity.Restaurante;
+import br.com.brunno.yfood.domain.entity.Usuario;
+import br.com.brunno.yfood.domain.service.RegraFraude;
 import jakarta.persistence.EntityManager;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /* contagem cognitiva:
     - FormaDePagamentoAceitaResponse

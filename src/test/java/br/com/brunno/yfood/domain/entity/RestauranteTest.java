@@ -1,5 +1,7 @@
-package br.com.brunno.yfood.domain;
+package br.com.brunno.yfood.domain.entity;
 
+import br.com.brunno.yfood.domain.entity.FormaPagamento;
+import br.com.brunno.yfood.domain.entity.Restaurante;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
