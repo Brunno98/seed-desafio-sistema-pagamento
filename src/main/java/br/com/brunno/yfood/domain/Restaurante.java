@@ -39,9 +39,11 @@ public class Restaurante {
                 '}';
     }
 
-    public List<FormaPagamento> formasDePagamentosAceitasParaOUsuario(Usuario usuario) {
+    public List<FormaPagamento> formasDePagamentosAceitasParaUsuario(Usuario usuario, List<RegraFraude> regrasFraude) {
         return this.formasDePagamentoAceitas.stream()
                 .filter(usuario::possuiFormaDePagamento)
+                .filter(formaPagamento -> regrasFraude.stream()
+                        .noneMatch(regraFraude -> regraFraude.verifica(usuario, formaPagamento)))
                 .collect(Collectors.toList());
     }
 }
