@@ -1,4 +1,4 @@
-package br.com.brunno.yfood.application;
+package br.com.brunno.yfood.application.restaurante;
 
 import br.com.brunno.yfood.domain.entity.Restaurante;
 import jakarta.persistence.EntityManager;

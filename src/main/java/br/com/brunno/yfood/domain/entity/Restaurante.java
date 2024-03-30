@@ -2,6 +2,7 @@ package br.com.brunno.yfood.domain.entity;
 
 import br.com.brunno.yfood.domain.service.RegraFraude;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +24,7 @@ public class Restaurante {
     @Column(nullable = false)
     private String nome;
 
+    @ElementCollection
     private Set<FormaPagamento> formasDePagamentoAceitas = new HashSet<>();
 
     @Deprecated
@@ -50,5 +52,9 @@ public class Restaurante {
                 .filter(formaPagamento -> regrasFraude.stream()
                         .noneMatch(regraFraude -> regraFraude.verifica(usuario, formaPagamento)))
                 .collect(Collectors.toList());
+    }
+
+    public boolean aceitaFormaPagamento(FormaPagamento formaPagamento) {
+        return this.formasDePagamentoAceitas.contains(formaPagamento);
     }
 }

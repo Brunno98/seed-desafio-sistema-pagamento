@@ -1,4 +1,4 @@
-package br.com.brunno.yfood.application;
+package br.com.brunno.yfood.application.usuario;
 
 import br.com.brunno.yfood.domain.entity.FormaPagamento;
 import br.com.brunno.yfood.domain.entity.Usuario;

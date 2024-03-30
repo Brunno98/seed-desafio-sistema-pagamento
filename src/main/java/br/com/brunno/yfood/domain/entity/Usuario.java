@@ -1,6 +1,6 @@
 package br.com.brunno.yfood.domain.entity;
 
-import br.com.brunno.yfood.infrastructure.validators.ExcludeFromJacocoGeneratedReport;
+import br.com.brunno.yfood.infrastructure.ExcludeFromJacocoGeneratedReport;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -9,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import org.springframework.util.Assert;
 
-import javax.annotation.processing.Generated;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
