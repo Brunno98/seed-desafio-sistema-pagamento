@@ -1,6 +1,7 @@
 package br.com.brunno.yfood.application.pagamento;
 
 import br.com.brunno.yfood.domain.entity.FormaPagamento;
+import br.com.brunno.yfood.domain.entity.Pagamento;
 import br.com.brunno.yfood.domain.entity.Pedido;
 import br.com.brunno.yfood.domain.entity.Restaurante;
 import br.com.brunno.yfood.domain.entity.Transacao;
@@ -41,10 +42,17 @@ public class NovoPedidoComPagamentoOfflineRequest {
         return idUsuario;
     }
 
-    public Transacao toTransacao(EntityManager entityManager, Pedido pedido) {
+//    public Transacao toTransacao(EntityManager entityManager, Pedido pedido) {
+//        Restaurante restaurante = entityManager.find(Restaurante.class, idRestaurante);
+//        Usuario usuario = entityManager.find(Usuario.class, idUsuario);
+//
+//        return new Transacao(formaPagamento, restaurante, usuario, pedido);
+//    }
+
+    public Pagamento toPagamento(EntityManager entityManager, Pedido pedido) {
         Restaurante restaurante = entityManager.find(Restaurante.class, idRestaurante);
         Usuario usuario = entityManager.find(Usuario.class, idUsuario);
 
-        return new Transacao(formaPagamento, restaurante, usuario, pedido);
+        return new Pagamento(formaPagamento, restaurante, usuario, pedido);
     }
 }
