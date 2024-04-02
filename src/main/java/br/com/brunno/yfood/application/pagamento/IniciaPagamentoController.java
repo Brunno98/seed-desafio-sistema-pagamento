@@ -3,16 +3,13 @@ package br.com.brunno.yfood.application.pagamento;
 import br.com.brunno.yfood.domain.entity.Pagamento;
 import br.com.brunno.yfood.domain.entity.Pedido;
 import br.com.brunno.yfood.domain.service.PedidoService;
-import br.com.brunno.yfood.infrastructure.PagamentoRepository;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityTransaction;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,23 +33,32 @@ public class IniciaPagamentoController {
     private final EntityManager entityManager;
     private final FormaPagamentoOfflinePedidoValidador formaPagamentoPedidoValidador;
     private final FormaDePagamentoParaPedidoValidator formaDePagamentoParaPedidoValidator;
+    private final FormaPagamentoOnlinePedidoValdador formaPagamentoOnlinePedidoValdador;
     private final PedidoService pedidoService;
 
     @Autowired
     public IniciaPagamentoController(EntityManager entityManager,
                                      FormaPagamentoOfflinePedidoValidador formaPagamentoPedidoValidador,
                                      FormaDePagamentoParaPedidoValidator formaDePagamentoParaPedidoValidator,
+                                     FormaPagamentoOnlinePedidoValdador formaPagamentoOnlinePedidoValdador,
                                      PedidoService pedidoService) {
         this.entityManager = entityManager;
         this.formaPagamentoPedidoValidador = formaPagamentoPedidoValidador;
         this.formaDePagamentoParaPedidoValidator = formaDePagamentoParaPedidoValidator;
+        this.formaPagamentoOnlinePedidoValdador = formaPagamentoOnlinePedidoValdador;
         this.pedidoService = pedidoService;
     }
 
-    @InitBinder
-    public void binder(WebDataBinder binder) {
+    @InitBinder(value = "novoPedidoComPagamentoOfflineRequest")
+    public void binderPagamentoOffline(WebDataBinder binder) {
         binder.addValidators(formaPagamentoPedidoValidador);
         binder.addValidators(formaDePagamentoParaPedidoValidator);
+    }
+
+    @InitBinder(value = "novoPedidoComPagamentoOnlineRequest")
+    public void binderPagamentoOnline(WebDataBinder binder) {
+        binder.addValidators(formaPagamentoOnlinePedidoValdador);
+//        binder.addValidators(formaDePagamentoParaPedidoValidator);
     }
 
     @Transactional
@@ -70,6 +76,12 @@ public class IniciaPagamentoController {
         entityManager.persist(pagamento);
 
         return pagamento.toString();
+    }
+
+    @PostMapping("/pagamento/online")
+    public String geraPagamentoOnline(@RequestBody @Valid NovoPedidoComPagamentoOnlineRequest request) {
+
+        return "pagamento online...";
     }
 
 
