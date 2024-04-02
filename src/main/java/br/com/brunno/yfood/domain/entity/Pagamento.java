@@ -38,7 +38,7 @@ public class Pagamento {
     @ElementCollection
     private List<String> informacoesExtras = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Transacao> transacoes = new ArrayList<>();
 
     @Deprecated

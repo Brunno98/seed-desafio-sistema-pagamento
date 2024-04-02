@@ -3,8 +3,8 @@ package br.com.brunno.yfood.application.pagamento;
 import br.com.brunno.yfood.domain.entity.Pagamento;
 import br.com.brunno.yfood.domain.entity.Pedido;
 import br.com.brunno.yfood.domain.service.PedidoService;
+import br.com.brunno.yfood.infrastructure.PagamentoRepository;
 import jakarta.persistence.EntityManager;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindException;
@@ -24,6 +24,7 @@ import java.util.Optional;
     - PedidoService
     - Pedido
     - Pagamento
+    - PagamentoRepository
  */
 
 @RestController
@@ -33,16 +34,18 @@ public class PagamentoController {
     private final FormaPagamentoOfflinePedidoValidador formaPagamentoPedidoValidador;
     private final FormaDePagamentoParaPedidoValidator formaDePagamentoParaPedidoValidator;
     private final PedidoService pedidoService;
+    private final PagamentoRepository pagamentoRepository;
 
     @Autowired
     public PagamentoController(EntityManager entityManager,
                                FormaPagamentoOfflinePedidoValidador formaPagamentoPedidoValidador,
                                FormaDePagamentoParaPedidoValidator formaDePagamentoParaPedidoValidator,
-                               PedidoService pedidoService) {
+                               PedidoService pedidoService, PagamentoRepository pagamentoRepository) {
         this.entityManager = entityManager;
         this.formaPagamentoPedidoValidador = formaPagamentoPedidoValidador;
         this.formaDePagamentoParaPedidoValidator = formaDePagamentoParaPedidoValidator;
         this.pedidoService = pedidoService;
+        this.pagamentoRepository = pagamentoRepository;
     }
 
     @InitBinder
@@ -51,7 +54,6 @@ public class PagamentoController {
         binder.addValidators(formaDePagamentoParaPedidoValidator);
     }
 
-    @Transactional
     @PostMapping("/pagamento/offline")
     public String geraPagamentoOfflineDePedido(@RequestBody @Valid NovoPedidoComPagamentoOfflineRequest request) throws BindException {
         Optional<Pedido> optionalPedido = pedidoService.buscaPedidoPorId(request.getIdPedido());
@@ -63,7 +65,7 @@ public class PagamentoController {
 
         Pagamento pagamento = request.toPagamento(entityManager, optionalPedido.get());
 
-        entityManager.merge(pagamento);
+        pagamentoRepository.save(pagamento);
 
         return pagamento.toString();
     }
