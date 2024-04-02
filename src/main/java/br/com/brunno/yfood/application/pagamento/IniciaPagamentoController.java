@@ -5,6 +5,8 @@ import br.com.brunno.yfood.domain.entity.Pedido;
 import br.com.brunno.yfood.domain.service.PedidoService;
 import br.com.brunno.yfood.infrastructure.PagamentoRepository;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindException;
@@ -25,7 +27,6 @@ import java.util.Optional;
     - PedidoService
     - Pedido
     - Pagamento
-    - PagamentoRepository
     - if (optionalPedido.isEmpty())
  */
 
@@ -36,18 +37,16 @@ public class IniciaPagamentoController {
     private final FormaPagamentoOfflinePedidoValidador formaPagamentoPedidoValidador;
     private final FormaDePagamentoParaPedidoValidator formaDePagamentoParaPedidoValidator;
     private final PedidoService pedidoService;
-    private final PagamentoRepository pagamentoRepository;
 
     @Autowired
     public IniciaPagamentoController(EntityManager entityManager,
                                      FormaPagamentoOfflinePedidoValidador formaPagamentoPedidoValidador,
                                      FormaDePagamentoParaPedidoValidator formaDePagamentoParaPedidoValidator,
-                                     PedidoService pedidoService, PagamentoRepository pagamentoRepository) {
+                                     PedidoService pedidoService) {
         this.entityManager = entityManager;
         this.formaPagamentoPedidoValidador = formaPagamentoPedidoValidador;
         this.formaDePagamentoParaPedidoValidator = formaDePagamentoParaPedidoValidator;
         this.pedidoService = pedidoService;
-        this.pagamentoRepository = pagamentoRepository;
     }
 
     @InitBinder
@@ -56,20 +55,22 @@ public class IniciaPagamentoController {
         binder.addValidators(formaDePagamentoParaPedidoValidator);
     }
 
+    @Transactional
     @PostMapping("/pagamento/offline")
     public String geraPagamentoOfflineDePedido(@RequestBody @Valid NovoPedidoComPagamentoOfflineRequest request) throws BindException {
         Optional<Pedido> optionalPedido = pedidoService.buscaPedidoPorId(request.getIdPedido());
         if (optionalPedido.isEmpty()) {
             BindException bindException = new BindException(request, "novoPedidoComPagamentoOfflineRequest");
-            bindException.rejectValue("idPedido", null, "pedido nao encontrado");
+            bindException.reject(null, "pedido "+request.getIdPedido()+" nao encontrado");
             throw bindException;
         }
 
         Pagamento pagamento = request.toPagamento(entityManager, optionalPedido.get());
 
-        pagamentoRepository.save(pagamento);
+        entityManager.persist(pagamento);
 
         return pagamento.toString();
     }
+
 
 }
