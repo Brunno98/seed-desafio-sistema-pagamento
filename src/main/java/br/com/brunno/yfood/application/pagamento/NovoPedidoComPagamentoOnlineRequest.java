@@ -4,13 +4,16 @@ import br.com.brunno.yfood.domain.entity.FormaPagamento;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
-public class NovoPedidoComPagamentoOnlineRequest {
+public class NovoPedidoComPagamentoOnlineRequest implements PedidoPagamentoRequest{
 
     @NotNull
     private Long idPedido;
 
     @NotNull
     private Long idUsuario;
+
+    @NotNull
+    private Long idRestaurante;
 
     @NotNull
     private FormaPagamento formaPagamento;
@@ -25,10 +28,17 @@ public class NovoPedidoComPagamentoOnlineRequest {
         return idPedido;
     }
 
+    @Override
+    public Long getIdRestaurante() {
+        return idRestaurante;
+    }
+
+    @Override
     public Long getIdUsuario() {
         return idUsuario;
     }
 
+    @Override
     public FormaPagamento getFormaPagamento() {
         return formaPagamento;
     }

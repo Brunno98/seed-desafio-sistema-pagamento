@@ -10,7 +10,7 @@ import br.com.brunno.yfood.infrastructure.validators.Exists;
 import jakarta.persistence.EntityManager;
 import jakarta.validation.constraints.NotNull;
 
-public class NovoPedidoComPagamentoOfflineRequest {
+public class NovoPedidoComPagamentoOfflineRequest implements PedidoPagamentoRequest{
 
     @NotNull
     private FormaPagamento formaPagamento;
@@ -26,10 +26,12 @@ public class NovoPedidoComPagamentoOfflineRequest {
     @Exists(domainField = "id", domain = Usuario.class)
     private Long idUsuario;
 
+    @Override
     public FormaPagamento getFormaPagamento() {
         return formaPagamento;
     }
 
+    @Override
     public Long getIdRestaurante() {
         return idRestaurante;
     }
@@ -38,6 +40,7 @@ public class NovoPedidoComPagamentoOfflineRequest {
         return idPedido;
     }
 
+    @Override
     public Long getIdUsuario() {
         return idUsuario;
     }

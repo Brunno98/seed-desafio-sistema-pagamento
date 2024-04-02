@@ -58,7 +58,7 @@ public class IniciaPagamentoController {
     @InitBinder(value = "novoPedidoComPagamentoOnlineRequest")
     public void binderPagamentoOnline(WebDataBinder binder) {
         binder.addValidators(formaPagamentoOnlinePedidoValdador);
-//        binder.addValidators(formaDePagamentoParaPedidoValidator);
+        binder.addValidators(formaDePagamentoParaPedidoValidator);
     }
 
     @Transactional
