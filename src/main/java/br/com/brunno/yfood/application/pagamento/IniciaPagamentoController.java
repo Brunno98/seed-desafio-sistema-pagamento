@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,10 +26,11 @@ import java.util.Optional;
     - Pedido
     - Pagamento
     - PagamentoRepository
+    - if (optionalPedido.isEmpty())
  */
 
 @RestController
-public class PagamentoController {
+public class IniciaPagamentoController {
 
     private final EntityManager entityManager;
     private final FormaPagamentoOfflinePedidoValidador formaPagamentoPedidoValidador;
@@ -37,10 +39,10 @@ public class PagamentoController {
     private final PagamentoRepository pagamentoRepository;
 
     @Autowired
-    public PagamentoController(EntityManager entityManager,
-                               FormaPagamentoOfflinePedidoValidador formaPagamentoPedidoValidador,
-                               FormaDePagamentoParaPedidoValidator formaDePagamentoParaPedidoValidator,
-                               PedidoService pedidoService, PagamentoRepository pagamentoRepository) {
+    public IniciaPagamentoController(EntityManager entityManager,
+                                     FormaPagamentoOfflinePedidoValidador formaPagamentoPedidoValidador,
+                                     FormaDePagamentoParaPedidoValidator formaDePagamentoParaPedidoValidator,
+                                     PedidoService pedidoService, PagamentoRepository pagamentoRepository) {
         this.entityManager = entityManager;
         this.formaPagamentoPedidoValidador = formaPagamentoPedidoValidador;
         this.formaDePagamentoParaPedidoValidator = formaDePagamentoParaPedidoValidator;

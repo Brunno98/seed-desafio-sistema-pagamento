@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureTestEntityManager
-class PagamentoControllerTest {
+class IniciaPagamentoControllerTest {
 
     @Autowired
     MockMvc mockMvc;

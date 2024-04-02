@@ -38,7 +38,7 @@ public class Pagamento {
     @ElementCollection
     private List<String> informacoesExtras = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Transacao> transacoes = new ArrayList<>();
 
     @Deprecated
@@ -69,5 +69,14 @@ public class Pagamento {
                 ", informacoesExtras=" + informacoesExtras +
                 ", transacoes=" + transacoes +
                 '}';
+    }
+
+    public void conclui() {
+        Assert.notEmpty(this.transacoes, "Pagamento "+id+" precisa ter transacoes em aberto para concluir");
+        this.transacoes.add(new Transacao(StatusTransacao.concluido));
+    }
+
+    public boolean isConcluido() {
+        return this.transacoes.stream().anyMatch(Transacao::concluida);
     }
 }
