@@ -1,28 +1,26 @@
 package br.com.brunno.yfood.infrastructure;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.logging.Logger;
 
 import static java.lang.Thread.sleep;
 
 @ExcludeFromJacocoGeneratedReport
 @RestController
 public class ServicosExternosController {
-    public static final Log log = LogFactory.getLog(ServicosExternosController.class);
+    public static final Logger log = LoggerFactory.getLogger(ServicosExternosController.class);
 
     private Map<Long, Pedido> pedidos = Map.of(
             1l, new Pedido(1l, BigDecimal.TEN),
