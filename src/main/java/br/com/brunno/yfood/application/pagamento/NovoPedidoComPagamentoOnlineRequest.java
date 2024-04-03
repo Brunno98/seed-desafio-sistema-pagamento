@@ -1,8 +1,15 @@
 package br.com.brunno.yfood.application.pagamento;
 
+import br.com.brunno.yfood.domain.entity.DadosCartao;
 import br.com.brunno.yfood.domain.entity.FormaPagamento;
+import br.com.brunno.yfood.domain.entity.Pagamento;
+import br.com.brunno.yfood.domain.entity.Pedido;
+import br.com.brunno.yfood.domain.entity.Restaurante;
+import br.com.brunno.yfood.domain.entity.Usuario;
+import jakarta.persistence.EntityManager;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.CreditCardNumber;
 
 public class NovoPedidoComPagamentoOnlineRequest implements PedidoPagamentoRequest{
 
@@ -19,6 +26,7 @@ public class NovoPedidoComPagamentoOnlineRequest implements PedidoPagamentoReque
     private FormaPagamento formaPagamento;
 
     @NotEmpty
+    @CreditCardNumber
     private String numeroCartao;
 
     @NotEmpty
@@ -49,5 +57,13 @@ public class NovoPedidoComPagamentoOnlineRequest implements PedidoPagamentoReque
 
     public String getCodigoSeguranca() {
         return codigoSeguranca;
+    }
+
+    public Pagamento toPagamento(EntityManager entityManager, Pedido pedido) {
+        Restaurante restaurante = entityManager.find(Restaurante.class, idRestaurante);
+        Usuario usuario = entityManager.find(Usuario.class, idUsuario);
+        Pagamento pagamentoOnline = new Pagamento(formaPagamento, restaurante, usuario, pedido);
+        pagamentoOnline.setDadosCartao(new DadosCartao(numeroCartao, codigoSeguranca));
+        return pagamentoOnline;
     }
 }
