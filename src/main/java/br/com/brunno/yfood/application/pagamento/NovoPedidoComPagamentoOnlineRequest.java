@@ -6,6 +6,7 @@ import br.com.brunno.yfood.domain.entity.Pagamento;
 import br.com.brunno.yfood.domain.entity.Pedido;
 import br.com.brunno.yfood.domain.entity.Restaurante;
 import br.com.brunno.yfood.domain.entity.Usuario;
+import br.com.brunno.yfood.infrastructure.validators.Exists;
 import jakarta.persistence.EntityManager;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -17,9 +18,11 @@ public class NovoPedidoComPagamentoOnlineRequest implements PedidoPagamentoReque
     private Long idPedido;
 
     @NotNull
+    @Exists(domain = Usuario.class, domainField = "id")
     private Long idUsuario;
 
     @NotNull
+    @Exists(domain = Restaurante.class, domainField = "id")
     private Long idRestaurante;
 
     @NotNull

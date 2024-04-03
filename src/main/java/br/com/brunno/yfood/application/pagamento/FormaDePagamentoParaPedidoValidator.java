@@ -7,6 +7,7 @@ import br.com.brunno.yfood.domain.service.RegraFraude;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -37,7 +38,10 @@ public class FormaDePagamentoParaPedidoValidator implements Validator {
         PedidoPagamentoRequest request = (PedidoPagamentoRequest) target;
 
         Restaurante restaurante = entityManager.find(Restaurante.class, request.getIdRestaurante());
+        Assert.notNull(restaurante, "nao e possivel validar forma de pagamento para pedido com o restaurente sendo nulo para o id "+request.getIdRestaurante());
+
         Usuario usuario = entityManager.find(Usuario.class, request.getIdUsuario());
+        Assert.notNull(usuario, "nao e possivel validar forma de pagamento para pedido com o usuario sendo nulo para o id "+request.getIdUsuario());Assert.notNull(restaurante, "nao e possivel validar forma de pagamento para pedido com o restaurente sendo nulo para o id "+request.getIdRestaurante());
 
         List<FormaPagamento> formasPagamentoAceitas = restaurante.formasDePagamentosAceitasParaUsuario(usuario, regrasFraude);
 
