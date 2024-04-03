@@ -1,5 +1,7 @@
 package br.com.brunno.yfood.domain.entity;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -13,7 +15,10 @@ import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 public class Pagamento {
@@ -35,8 +40,7 @@ public class Pagamento {
 
     private Long idPedido;
 
-    @ElementCollection
-    private List<String> informacoesExtras = new ArrayList<>();
+    private String informacoesExtras;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Transacao> transacoes = new ArrayList<>();
@@ -78,5 +82,41 @@ public class Pagamento {
 
     public boolean isConcluido() {
         return this.transacoes.stream().anyMatch(Transacao::concluida);
+    }
+
+    public BigDecimal getValor() {
+        return this.valor;
+    }
+
+    public void registraTarifacaoFalha(){
+        this.transacoes.add(new Transacao(StatusTransacao.falha));
+    }
+
+    public FormaPagamento getFormaPagamento() {
+        return this.formaPagamento;
+    }
+
+    public DadosCartao getDadosCartao() {
+        try {
+            return new ObjectMapper().readValue(this.informacoesExtras, DadosCartao.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void setDadosCartao(DadosCartao dadosCartao) {
+        try {
+            this.informacoesExtras = new ObjectMapper().writeValueAsString(dadosCartao);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void registraTransacao(Transacao transacao) {
+        this.transacoes.add(transacao);
+    }
+
+    public void registraTransacoes(List<Transacao> transacoes) {
+        this.transacoes.addAll(transacoes);
     }
 }

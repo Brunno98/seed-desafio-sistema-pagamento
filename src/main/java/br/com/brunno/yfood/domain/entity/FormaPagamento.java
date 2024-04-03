@@ -6,7 +6,8 @@ public enum FormaPagamento {
     cheque(false, "Pagamento em cheque"),
     elo(true, "Pagamento com cartão elo"),
     hipercard(true, "Pagamento com cartão hipercard"),
-    mastercard(true, "Pagamento com cartão mastercard");
+    mastercard(true, "Pagamento com cartão mastercard"),
+    visa(true, "Pagamento com cartão visa");
 
 
     public final boolean online;

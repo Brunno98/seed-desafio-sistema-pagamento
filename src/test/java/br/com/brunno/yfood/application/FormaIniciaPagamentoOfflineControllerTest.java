@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class FormaIniciaPagamentoControllerTest {
+public class FormaIniciaPagamentoOfflineControllerTest {
 
     @Autowired
     MockMvc mockMvc;
