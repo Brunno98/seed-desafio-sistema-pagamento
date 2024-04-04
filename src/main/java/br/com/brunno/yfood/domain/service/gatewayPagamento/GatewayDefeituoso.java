@@ -7,10 +7,12 @@ import br.com.brunno.yfood.domain.entity.StatusTransacao;
 import br.com.brunno.yfood.domain.entity.Transacao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
+@Profile("dev")
 @Service
 public class GatewayDefeituoso implements GatewayPagamento {
     public static final Logger log = LoggerFactory.getLogger(Seya.class);

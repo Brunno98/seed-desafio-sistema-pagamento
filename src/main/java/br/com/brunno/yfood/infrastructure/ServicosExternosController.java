@@ -59,6 +59,12 @@ public class ServicosExternosController {
         log.info("Pagamento "+idProcessamento+" processado com sucesso");
     }
 
+    @PostMapping("/tarifa")
+    public void processaPagamento() throws InterruptedException {
+        log.info("processando pagamento...");
+        sleep(250);
+        log.info("Pagamento processado com sucesso");
+    }
 
     public record ValidaCartao(@JsonAlias("codigo_seguraca") String codigoSeguranca, @JsonAlias("num_cartao") String numCartao) {}
 }
