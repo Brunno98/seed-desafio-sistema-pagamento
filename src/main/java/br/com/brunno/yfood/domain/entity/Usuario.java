@@ -7,12 +7,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import org.springframework.util.Assert;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 public class Usuario {
@@ -27,6 +30,9 @@ public class Usuario {
     @Column(nullable = false)
     @ElementCollection
     private Set<FormaPagamento> formasDePagametoPossiveis = new HashSet<>();
+
+    @ManyToMany
+    private List<Restaurante> restaurantesSelecionados = new ArrayList<>();
 
     @Deprecated
     public Usuario() {}
@@ -69,5 +75,13 @@ public class Usuario {
 
     public String getEmail() {
         return email;
+    }
+
+    public void registraSelecao(Restaurante restaurante) {
+        this.restaurantesSelecionados.add(restaurante);
+    }
+
+    public int selecionou(Restaurante restaurante) {
+        return this.restaurantesSelecionados.stream().filter(restaurante::equals).toList().size();
     }
 }
